@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 version = '1.0'
 mainClassName = "com.badoo.hprof.validator.HprofValidator"
 
@@ -18,6 +18,8 @@ run {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile project(':hprof-lib')
+    testImplementation group: 'junit', name: 'junit', version: '4.11'
+    implementation project(':hprof-lib')
+    implementation 'com.google.guava:guava:33.4.8-jre'
+    implementation("com.google.code.findbugs:jsr305:3.0.2")
 }

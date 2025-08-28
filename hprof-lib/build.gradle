@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'maven-publish'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 version = '1.0'
 group = 'com.badoo.hprof.cruncher.library'
 
@@ -18,7 +18,8 @@ publishing {
 }
 
 dependencies {
-    compile 'com.google.guava:guava:17.0'
-    compile 'com.google.code.findbugs:jsr305:3.0.0'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    implementation 'com.google.guava:guava:33.4.8-jre'
+    implementation ("javax.annotation:javax.annotation-api:1.3.2")
+    implementation("com.google.code.findbugs:jsr305:3.0.2")
+    testImplementation group: 'junit', name: 'junit', version: '4.11'
 }

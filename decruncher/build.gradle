@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 version = '1.0'
 
 mainClassName = "com.badoo.bmd.decruncher.BmdDecruncher"
@@ -22,16 +22,22 @@ task jarWithDependencies(type: Jar) {
     manifest {
         attributes 'Main-Class': 'com.badoo.bmd.decruncher.BmdDecruncher'
     }
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
+    archiveBaseName = project.name + '-all'
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    duplicatesStrategy = 'exclude'
+    with tasks.jar
 }
 
 
 dependencies {
-    compile project(':hprof-lib')
-    compile project(':bmd-lib')
-    compile 'commons-io:commons-io:2.4'
-    compile files('libs/dex-reader-1.15.jar')
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    implementation project(':hprof-lib')
+    implementation project(':bmd-lib')
+    implementation 'commons-io:commons-io:2.4'
+    implementation("com.google.code.findbugs:jsr305:3.0.2")
+    implementation files('libs/dex-reader-1.15.jar')
+    testImplementation group: 'junit', name: 'junit', version: '4.11'
 }
